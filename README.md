@@ -24,24 +24,34 @@ Once you have the clone of the repo:
 
 1. Change into the rottenpotatoes directory: `cd hw-acceptance-unit-test-cycle/rottenpotatoes`  
 
-2. Run `bundle config set --local without 'production'` and then `bundle install` to make sure all gems are properly installed.  
+2. Run 
+
+```sh
+bundle config set --local without 'production' && bundle install
+```
+
+to make sure all gems are properly installed.  
 
 **NOTE:** If Bundler complains that the wrong Ruby version is installed,
 
-* **rvm**: verify that `rvm` is installed (for example, `rvm --version`) and say `rvm list` to see which Ruby versions are available and `rvm use `_version_ to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can say `rvm install `_version_ to install a new version, then `rvm use `_version_ to use it.
+* **rvm**: verify that `rvm` is installed (for example, `rvm --version`) and say `rvm list` to see which Ruby versions are available and `rvm use <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can say `rvm install <version>` to install a new version, then `rvm use <version>` to use it.
 
-* **rbenv**: verify that `rbenv` is installed (for example, `rbenv --version`) and say `rbenv versions` to see which Ruby versions are available and `rbenv local `_version_ to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can say `rbenv install `_version_ to install a new version, then `rbenv local `_version_ to use it.
+* **rbenv**: verify that `rbenv` is installed (for example, `rbenv --version`) and say `rbenv versions` to see which Ruby versions are available and `rbenv local <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can say `rbenv install <version>` to install a new version, then `rbenv local <version>` to use it.
 
 Then you can try `bundle install` again.
 
 3. Create the initial database schema:
 
 
-```shell
+```sh
 rake db:migrate
 ```
 
-If rake complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js: `sudo apt install nodejs`.  Rerun `rake db:migrate`.
+If rake complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and reattempt the migrations: 
+
+```sh
+sudo apt install nodejs && rake db:migrate
+```
 
 If rake complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it:
 
