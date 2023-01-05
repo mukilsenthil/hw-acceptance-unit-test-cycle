@@ -10,7 +10,7 @@ RSpec.describe Movie, type: :model do
     # TODO(student): add more movies to use for testing
   end
   
-  describe "others_by_same_director method"
+  describe "others_by_same_director method" do
     it "returns all other movies by the same director"
       # TODO(student): implement this test
     
