@@ -79,7 +79,13 @@ rake db:test:prepare
 
 6. Double check that Cucumber is correctly set up by running `rake cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
 
-If rake complains that `Don't know how to build task 'cucumber'`, then you need to run `rails generate cucumber:install`.  Say `Y` to all requests to overwrite.  Then re-add to `features/support/env.rb` at the top:
+If rake complains that `Don't know how to build task 'cucumber'`, then you need to run 
+
+```sh
+rails generate cucumber:install
+```  
+
+Say `Y` to all requests to overwrite.  Then re-add to `features/support/env.rb` at the top:
 
 ```ruby
 require 'simplecov'
