@@ -53,7 +53,7 @@ If rake complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript 
 sudo apt install nodejs && rake db:migrate
 ```
 
-If rake complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it:
+If rake complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
 
 ```shell
 mkdir -p app/assets/config
