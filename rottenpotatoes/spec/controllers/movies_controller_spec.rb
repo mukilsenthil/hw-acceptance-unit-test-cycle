@@ -10,7 +10,7 @@ RSpec.describe MoviesController, type: :controller do
     # TODO(student): add more movies to use for testing
   end
   
-  describe "when trying to find movies by the same director"
+  describe "when trying to find movies by the same director" do
     it "returns a valid collection when a valid director is present"
       # TODO(student): implement this test
     
