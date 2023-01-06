@@ -233,6 +233,9 @@ run `rubocop` and `rubycritic` and address most, if not all, of the issues they 
 
 # Submission:
 
+Add, commit, and push your changes to your git repository.  Your instructor should have read access to your repo (or your repo should be public).  Submit the address of your repo to the assignment on Canvas.
+
+<!--
 Here are the instructions for submitting your assignment for grading. Submit a zip file containing the following files and directories of your app:
 
 * `app/`
@@ -265,3 +268,4 @@ $ tree
     ├── app
     ...
 ```
+-->
