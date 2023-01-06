@@ -22,7 +22,11 @@ e.g. `git clone https://github.edu/[account/organization]/hw-acceptance-unit-tes
 
 Once you have the clone of the repo:
 
-1. Change into the rottenpotatoes directory: `cd hw-acceptance-unit-test-cycle/rottenpotatoes`  
+1. Change into the rottenpotatoes directory: 
+
+```sh
+cd hw-acceptance-unit-test-cycle/rottenpotatoes
+```
 
 2. Run 
 
