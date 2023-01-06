@@ -92,7 +92,10 @@ require 'simplecov'
 SimpleCov.start 'rails'
 ```
 
-Then run `rake cucumber`.
+Then run 
+```sh
+rake cucumber
+```
 
 <details>
   <summary> 
