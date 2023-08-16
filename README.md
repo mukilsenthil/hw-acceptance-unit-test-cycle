@@ -18,7 +18,7 @@ Introduction and Setup
 ----
 Clone **your fork** of this repo to your development environment (**do not clone** this reference repo or you'll be unable to push your changes);
 
-e.g. `git clone https://github.edu/[your-account]/hw-acceptance-unit-test-cycle`
+e.g. `git clone https://github.com/[your-account]/hw-acceptance-unit-test-cycle`
 
 Once you have the clone of the repo:
 
