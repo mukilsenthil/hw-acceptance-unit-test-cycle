@@ -1,21 +1,19 @@
-Acceptance-Unit Test Cycle
-===
-
+# Acceptance-Unit Test Cycle
 
 In this assignment you will use a combination of Acceptance and Units tests with the Cucumber and RSpec tools to add a "find movies with same director" feature to RottenPotatoes.
 
 **To start: fork this repo and then clone your fork.**
 
-Learning Goals
---------------
+## Learning Goals
+
 After you complete this assignment, you should be able to:
 * Create and run simple Cucumber scenarios to test a new feature
 * Use RSpec to create unit tests that drive the creation of app code that lets the Cucumber scenario pass
 * Understand where to modify a Rails app to implement the various parts of a new feature, since a new feature often touches the database schema, model(s), view(s), and controller(s)
 
 
-Introduction and Setup
-----
+## Introduction and Setup
+
 Clone **your fork** of this repo to your development environment (**do not clone** this reference repo or you'll be unable to push your changes);
 
 e.g. `git clone https://github.com/[your-account]/hw-acceptance-unit-test-cycle`
@@ -48,16 +46,16 @@ Then you can try `bundle install` again.
 
 
 ```sh
-rake db:migrate
+rails db:migrate
 ```
 
-If rake complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and reattempt the migrations: 
+If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations: 
 
 ```sh
-sudo apt install nodejs && rake db:migrate
+sudo apt install nodejs && rails db:migrate
 ```
 
-If rake complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
+If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
 
 ```shell
 mkdir -p app/assets/config
@@ -67,23 +65,23 @@ mkdir -p app/assets/config
 } > app/assests/config/manifest.js
 ```
 
-Then rereun `rake db:migrate`.  If rake complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[6.1]`.
+Then re-run `rails db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
 
-This should be the last time you have to attempt to rerun `rake db:migrate`.
+This should be the last time you have to attempt to re-run `rails db:migrate`.
 
 Now do:
 
 ```shell
-rake db:test:prepare
+rails db:test:prepare
 ```
 
-4. If you like, add some more seed data in `db/seeds.rb`.  Then, run `rake db:seed` to add it to the database.
+4. If you like, add some more seed data in `db/seeds.rb`.  Then, run `rails db:seed` to add it to the database.
 
-5. Double check that RSpec is correctly set up by running `rake spec`.  (Note--*not* `rake rspec` as you might think. Sorry.)  There are already some RSpec tests written and you should expect them to fail right now.
+5. Double check that RSpec is correctly set up by running `rails spec`.  (Note--*not* `rails rspec` as you might think. Sorry.)  There are already some RSpec tests written and you should expect them to fail right now.
 
-6. Double check that Cucumber is correctly set up by running `rake cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
+6. Double check that Cucumber is correctly set up by running `rails cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
 
-If rake complains that `Don't know how to build task 'cucumber'`, then you need to run 
+If rails complains that `Don't know how to build task 'cucumber'`, then you need to run 
 
 ```sh
 rails generate cucumber:install
@@ -98,7 +96,7 @@ SimpleCov.start 'rails'
 
 Then run 
 ```sh
-rake cucumber
+rails cucumber
 ```
 
 <details>
@@ -115,7 +113,7 @@ rake cucumber
 </details>
 
 
-# Part 1: add a Director field to Movies
+## Part 1: add a Director field to Movies
 
 Create and apply a migration that adds the Director field to the movies table. The director field should be a string containing the name of the movie’s director. 
 
@@ -176,7 +174,7 @@ So do that now: **modify the controller and views as needed to be "aware" of the
 
 
 
-# Part 2: use Acceptance and Unit tests to get new scenarios passing
+## Part 2: use Acceptance and Unit tests to get new scenarios passing
 
 We've provided three Cucumber scenarios in the file `features/movies_by_director.feature` to drive creation of two happy paths and one sad path of Search for Movies by Director. The first lets you add director info to an existing movie, and doesn't require creating any new views or controller actions, but does require modifying existing views, and will require creating a new step definition. 
 
@@ -215,7 +213,7 @@ and at least 2 specs for your model:
 
 It's up to you to decide whether you want to handle the sad path of "no director" in the controller method or in the model method, but you must provide a test for whichever one you do. **Remember to include the line** `require 'rails_helper'` at the top of every `*_spec.rb` file.
 
-# Part 3: Code Coverage
+## Part 3: Code Coverage
 
 We want you to report your code coverage as well.
 
@@ -227,15 +225,12 @@ To see the results, open `coverage/index.html` with a browser or HTML preview ex
 
 Improve your test coverage to at least 90% by adding unit tests for untested or undertested code and by removing code which you do not need.
 
-# Part 4: Code Quality
+## Part 4: Code Quality
 
 run `rubocop` and `rubycritic` and address most, if not all, of the issues they find.
 
-# Submission:
+## Submission:
 
-Add, commit, and push your changes to your git repository.  Your instructor should have read access to your repo (or your repo should be public).  Submit the address of your repo to the assignment on Canvas.
-
-<!--
 Here are the instructions for submitting your assignment for grading. Submit a zip file containing the following files and directories of your app:
 
 * `app/`
@@ -268,4 +263,3 @@ $ tree
     ├── app
     ...
 ```
--->
