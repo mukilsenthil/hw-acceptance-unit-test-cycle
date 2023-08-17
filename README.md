@@ -180,7 +180,7 @@ rails cucumber
 
 You will find thw [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master) helpful.
 
-After each step that you define, run Cucumber again to verify that the step is passing as expected.  **Do not race ahead.**
+After each step that you define, run Cucumber again to verify that the step is failing as expected (failing for the *right* reason).
 
 <details>
   <summary>
