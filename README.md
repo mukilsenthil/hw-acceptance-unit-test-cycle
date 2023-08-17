@@ -1,6 +1,6 @@
 # Acceptance-Unit Test Cycle
 
-In this assignment you will use a combination of Acceptance and Units tests with the Cucumber and RSpec tools to add a "find movies with same director" feature to RottenPotatoes.
+In this assignment you will use a combination of acceptance and unit tests with the Cucumber and RSpec tools to add a "find movies with same director" feature to RottenPotatoes.
 
 **To start: fork this repo and then clone your fork.**
 
