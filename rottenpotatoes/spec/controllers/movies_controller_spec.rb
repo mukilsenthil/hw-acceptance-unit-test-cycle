@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe MoviesController, type: :controller do
   before(:all) do
-    if Movie.where(:title => "Big Hero 6").empty?
-      Movie.create(:title => "Big Hero 6", 
-                   :rating => "PG", :release_date => "2014-11-07")
+    if Movie.where(title: "Big Hero 6").empty?
+      Movie.create(title: "Big Hero 6", 
+                   rating: "PG", release_date: "2014-11-07")
     end
     
     # TODO(student): add more movies to use for testing
@@ -20,11 +20,11 @@ RSpec.describe MoviesController, type: :controller do
   
   describe "creates" do
     it "movies with valid parameters" do
-      get :create, params: {:movie => {:title => "Toucan Play This Game", :director => "Armando Fox",
-                    :rating => "G", :release_date => "2017-07-20"}}
+      get :create, params: {movie: {title: "Toucan Play This Game", director: "Armando Fox",
+                    rating: "G", release_date: "2017-07-20"}}
       expect(response).to redirect_to movies_path
       expect(flash[:notice]).to match(/Toucan Play This Game was successfully created./)
-      Movie.find_by(:title => "Toucan Play This Game").destroy
+      Movie.find_by(title: "Toucan Play This Game").destroy
     end
   end
   
