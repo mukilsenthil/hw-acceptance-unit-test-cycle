@@ -57,7 +57,7 @@ sudo apt install nodejs && rails db:migrate
 
 If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
 
-```shell
+```sh
 mkdir -p app/assets/config
 {
   echo "//= link_directory ../javascripts .js"
@@ -71,11 +71,15 @@ This should be the last time you have to attempt to re-run `rails db:migrate`.
 
 Now do:
 
-```shell
+```sh
 rails db:test:prepare
 ```
 
-4. If you like, add some more seed data in `db/seeds.rb`.  Then, run `rails db:seed` to add it to the database.
+4. Add some more seed data in `db/seeds.rb`.  Then, add it to the database by running
+
+```sh
+rails db:seed
+```
 
 5. Double check that RSpec is correctly set up by running `rails spec`.  (Note--*not* `rails rspec` as you might think. Sorry.)  There are already some RSpec tests written and you should expect them to fail right now.
 
