@@ -350,9 +350,9 @@ end
 16. Run Cucumber: `rails cucumber`.
 17. Verify that the step is passing.
     * If it is failing, ask yourself:
-      * "Did I miss a functional requirement?" (if so, your specs, and therefore also your code, are incomplete. write more specs to drive more code.)
-      * "Are my specs wrong?" (if so, your code is "correct" against and invalid spec.  fix your spec and fix your code.)
-      * "Is my step definition wrong?" (if so, your specs might be invalid and your code might be doing the wrong thing. fix your step definition, fix your specs, fix your code.)
+      * "Did I miss a functional requirement?" (if so, your specs, and therefore also your code, are incomplete. go to step 9 to write more specs to drive more code.)
+      * "Are my specs wrong?" (if so, your code is "correct" against and invalid spec.  go to step 9 to fix your spec and fix your code.)
+      * "Is my step definition wrong?" (if so, your specs might be invalid and your code might be doing the wrong thing. go to step 3 to fix your step definition, fix your specs, fix your code.)
     * If it is passing, add and commit changes, then go to step 3 to start working on the next step.
 
 
