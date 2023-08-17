@@ -166,12 +166,12 @@ rails cucumber
   </blockquote>
 </details>
 
-### Action! Define a Step
+### Action! Define Steps, Implement a Step
 
 1. As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report) into `movie_steps.rb`.  **Do it now.**
 2. Run Cucumber again: `rails cucumber`.
    * See that all steps are now pending or skipped (because an earlier step is pending).
-3. Define the step `I go to the edit page for {string}`
+3. Implement the step `I go to the edit page for {string}`
    * You will find these to be helpful:
      * [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master)
      * [Active Record Basics - Ruby on Rails Guides](https://guides.rubyonrails.org/active_record_basics.html)
@@ -190,9 +190,9 @@ Verify that the Cucumber steps you expect to pass actually do pass by running
 rails cucumber
 ```
 
-###  Action! Define Another Step
+###  Action! Implement Another Step
 
-1. Define the step `I fill in {string} with {string}`
+1. Implement the step `I fill in {string} with {string}`
 2. Run cucumber to see the step is failing for the right reason.
 
 <details>
@@ -201,6 +201,48 @@ rails cucumber
   Unable to find field "Director" that is not disabled (Capybara::ElementNotFound).  The edit page (app/views/movies/edit.html.erb) does not have a director field.  So, we must add it!
   </blockquote>
 </details>
+
+### Action! Modify the View to Be Aware of the `director` field
+
+Based on the above, you should be able to modify the view to be "aware" of the new Director field.
+
+So, do that now.
+
+### Action! Run Cucumber
+Verify that the Cucumber steps you expect to pass actually do pass by running
+
+```sh
+rails cucumber
+```
+
+The first two steps of `Scenario: add director to existing movie` should be green (passing).  The next step (`And I press "Update Movie Info"`) should be pending.
+
+This is the end of Part 1.
+
+## Part 2: use Acceptance and Unit tests to get new scenarios passing
+
+We've provided three Cucumber scenarios in the file `features/movies_by_director.feature` to drive creation of two happy paths and one sad path of Search for Movies by Director.
+
+### Scenario: Add Director to Existing Movie
+The first expects to be able to add director info to an existing movie, and doesn't require creating any new views or controller actions, but does require modifying existing views and the movie controller and implementing steps.
+
+In Part 1, we added the director field to movies, defined all the steps (but left most as TODO), implemented two steps, and added the director field to the edit view.
+
+The next step is to press "Update Movie Info" (the submit button for the edit movie form).
+
+1. Implement the step `And I press {string}`.
+2. Run cucumber.
+3. Verify that the step passes.
+   * Did you expect it to pass? Why (not)?
+
+So far, so good, no?
+
+The last step of this scenario is to verify that the director field was updated in the database.
+
+1. Implement the step `the director of {string} should be {string}`
+2. Run cucumber.
+3. Verify that the step fails.
+   * Did you expect it to fail? Why (not)?
 
 <details>
   <summary>
@@ -220,34 +262,30 @@ rails cucumber
   </blockquote>
 </details>
 
-### Action! Modify the View and Controller to Be Aware of the `director` field
+### Action! Update the Movies Controller to Add Director to the Permitted Movie Parameters
 
-Based on the above self-checks, you should be able to modify the controller and view as needed to be "aware" of the new Director field.
+1. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
+2. Run cucumber to verify that the step passes.
 
-So do that now: **modify the controller and view as needed to be "aware" of the new Director field.**
+### Action! Celebrate!
 
-### Action! Run Cucumber
-Verify that the Cucumber steps you expect to pass actually do pass by running
+All steps in the first scenario should be passing!
 
-```sh
-rails cucumber
-```
+### Scenario: Find Movies with the Same Director
 
-## Part 2: use Acceptance and Unit tests to get new scenarios passing
+The second scenario that we have provided for you lets you click a new link on a movie details page "Find Movies with Same Director", and shows all other movies that share the same director as the displayed movie.  For this you'll have to modify the existing Show Movie view, and you'll have to add a route, view and controller method for Find With Same Director.  
 
-We've provided three Cucumber scenarios in the file `features/movies_by_director.feature` to drive creation of two happy paths and one sad path of Search for Movies by Director. The first lets you add director info to an existing movie, and doesn't require creating any new views or controller actions, but does require modifying existing views, and will require creating a new step definition. 
+### Action! Implement the Step Definitions
 
-The second lets you click a new link on a movie details page "Find Movies with Same Director", and shows all other movies that share the same director as the displayed movie.  For this you'll have to modify the existing Show Movie view, and you'll have to add a route, view and controller method for Find With Same Director.  
+### Scenario: Can't Find Movies With the Same Director If We Don't Know the Director
 
 The third handles the sad path, when the current movie has no director info but we try to do "Find Movies with Same Director" anyway.
 
 Going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At the least, you will need to write tests to drive the creation of: 
 
-+ a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: you probably won’t test this directly in a spec, but a line in Cucumber or rspec will fail if the route is not correct.
-
-+ a controller method to receive the click on "Find with Same Director", and grab the `id` (for example) of the movie that is the subject of the match (i.e. the one we're trying to find movies similar to) 
-
-+ a model method in the `Movie` model to find movies whose director matches that of the current movie.
+* a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: you probably won’t test this directly in a spec, but a line in Cucumber or rspec will fail if the route is not correct.
+* a controller method to receive the click on "Find with Same Director", and grab the `id` (for example) of the movie that is the subject of the match (i.e. the one we're trying to find movies similar to) 
+* a model method in the `Movie` model to find movies whose director matches that of the current movie.
 
 <details>
   <summary> 
