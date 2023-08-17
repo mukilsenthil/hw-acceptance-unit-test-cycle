@@ -81,9 +81,16 @@ rails db:test:prepare
 rails db:seed
 ```
 
-5. Double check that RSpec is correctly set up by running `rails spec`.  (Note--*not* `rails rspec` as you might think. Sorry.)  There are already some RSpec tests written and you should expect them to fail right now.
+5. Double check that RSpec is correctly set up by running
 
-6. Double check that Cucumber is correctly set up by running `rails cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
+```sh
+rails spec
+# (Note--*not* rails rspec as you might think. Sorry.)
+```
+
+There are already some RSpec tests written and you should expect them to fail right now.
+
+7. Double check that Cucumber is correctly set up by running `rails cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
 
 If rails complains that `Don't know how to build task 'cucumber'`, then you need to run 
 
