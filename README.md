@@ -285,7 +285,7 @@ The second scenario that we have provided for you expects to be able to click a 
 
 **Write tests first.**
 
-You will find the [RSpec Rails documentation](https://rspec.info/features/6-0/rspec-rails/) helpful.
+You will find the [RSpec documentation](https://rspec.info/documentation/) helpful.
 
 Going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At the least, you will need to write tests to drive the creation of: 
 
