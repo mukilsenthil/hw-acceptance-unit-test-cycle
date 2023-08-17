@@ -26,7 +26,7 @@ Scenario: find movie with same director
   And   I should see "THX-1138"
   But   I should not see "Blade Runner"
 
-Scenario: can't find similar movies if we don't know director (sad path)
+Scenario: can't find movies with the same director if we don't know the director
   Given I am on the details page for "Alien"
   Then  I should not see "Ridley Scott"
   When  I follow "Find Movies With Same Director"
