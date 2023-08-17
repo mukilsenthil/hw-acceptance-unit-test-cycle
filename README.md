@@ -176,11 +176,24 @@ rails cucumber
 
 ### Action! Define Steps
 
-**One at a time**, write a step definition for each of the missing steps of the first scenario (add director to existing movie).
+As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report).  **Do it now.**
+
+Run Cucumber again: `rails cucuber`.
+
+See that all steps are now pending or skipped (because an earlier step is pending).
+
+**One at a time**, implement a definition for each of the steps.
 
 You will find thw [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master) helpful.
 
 After each step that you define, run Cucumber again to verify that the step is failing as expected (failing for the *right* reason).
+
+### Action! Run Cucumber
+Verify that the Cucumber steps you expect to pass actually do pass by running
+
+```sh
+rails cucumber
+```
 
 <details>
   <summary>
