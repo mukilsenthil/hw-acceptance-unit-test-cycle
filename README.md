@@ -287,7 +287,7 @@ The second scenario that we have provided for you expects to be able to click a 
 
 Going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At the least, you will need to write tests to drive the creation of: 
 
-* a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: you probably won’t test this directly in a spec, but a line in Cucumber or rspec will fail if the route is not correct.
+* a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: Tests can fail if the route is not correct (you can test route existence directly in a spec).
 * a controller method to receive the click on "Find with Same Director", and grab the `id` (for example) of the movie that is the subject of the match (i.e. the one we're trying to find movies similar to) 
 * a model method in the `Movie` model to find movies whose director matches that of the current movie.
 
