@@ -117,11 +117,9 @@ rails cucumber
   <summary> 
   Read the Cucumber failure error messages.  The Background step is red.  Why? And how do we fix it?
   </summary>
-  <p>
   <blockquote> 
   The attribute `director` is unknown (doesn't exist) for the `Movie` model.  We must add a `director` field to the `Movie` model.
   </blockquote>
-  </p>
 </details>
 
 ## Part 1: add a Director field to Movies
@@ -138,22 +136,18 @@ to load the new post-migration schema into the test database.
   <summary>
   Clearly, now that a new field has been added, we will have to modify the Views so that the user can see and enter values for that field. Do we also have to modify the model file in order for the new field to be "noticed"?
   </summary>
-  <p>
   <blockquote> 
   Nope.  ActiveRecord infers the columns and their data types by inspecting the database.  However, if we wanted to have a validation on that column, we'd have to specifically mention it in a <code>validates</code> call.
   </blockquote>
-  </p>
 </details>
 
 <details>
   <summary> 
   If you were to re-run cucumber now, which **previously failing(( steps do you expect to now **pass**?  Why?
   </summary>
-  <p>
   <blockquote> 
   Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
   </blockquote>
-  </p>
 </details>
 
 ### Action! Run Cucumber
@@ -167,26 +161,27 @@ rails cucumber
   <summary> 
   Read the Cucumber results.  You should see that every step of the scenarios are undefined. What will you have to do to address that?  Specifically, how do you resolve the very first of those: Undefined step: "I go to the edit page for "Alien"" 
   </summary>
-  <p>
   <blockquote> 
   You'll have to write a definition. Right now, it's not a bad idea to write these steps in `features/step_definitions/movie_steps.rb`.
   </blockquote>
-  </p>
 </details>
 
-### Action! Define Steps
+### Action! Define a Step
 
-As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report).  **Do it now.**
+1. As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report) into `movie_steps.rb`.  **Do it now.**
+2. Run Cucumber again: `rails cucumber`.
+   * See that all steps are now pending or skipped (because an earlier step is pending).
+3. Define the step `I go to the edit page for {string}`
+   * You will find these to be helpful:
+     * [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master)
+     * [Active Record Basics - Ruby on Rails Guides](https://guides.rubyonrails.org/active_record_basics.html)
 
-Run Cucumber again: `rails cucuber`.
-
-See that all steps are now pending or skipped (because an earlier step is pending).
-
-**One at a time**, implement a definition for each of the steps.
-
-You will find thw [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master) helpful.
-
-After each step that you define, run Cucumber again to verify that the step is failing as expected (failing for the *right* reason).
+<details>
+  <summary>Hints for the desperate and depraved.</summary>
+    <blockquote>
+      Find the movie by title, then visit the edit movie path for that movie.
+    </blockquote>
+</details>
 
 ### Action! Run Cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
@@ -195,33 +190,48 @@ Verify that the Cucumber steps you expect to pass actually do pass by running
 rails cucumber
 ```
 
+###  Action! Define Another Step
+
+1. Define the step `I fill in {string} with {string}`
+2. Run cucumber to see the step is failing for the right reason.
+
+<details>
+  <summary>What is the right rason for this step to fail?</summary>
+  <blockquote> 
+  Unable to find field "Director" that is not disabled (Capybara::ElementNotFound).  The edit page (app/views/movies/edit.html.erb) does not have a director field.  So, we must add it!
+  </blockquote>
+</details>
+
 <details>
   <summary>
-  Besides modifying the Views, will we have to modify anything in the controller?  If so, what? 
+  Besides modifying the view, will we have to modify anything in the controller?  If so, what? 
   </summary>
-  <p>
   <blockquote> 
   Yes: we have to add <code>:director</code> to the list of movie attributes in the <code>def movie_params</code> method in <code>movies_controller.rb</code>.  Otherwise, even if that value is available as <code>params["movie"]["director"]</code>, it will be "scrubbed" by the <code>require</code> and <code>permit</code> calls on <code>params</code> before the controller actions are able to see it.
   </blockquote>
-  </p>
 </details>
 
 <details>
   <summary>
   Which controller actions, specifically, would fail to work correctly if we didn't make the above change?
   </summary>
-  <p>
   <blockquote> 
   <code>create</code> and <code>update</code> would fail, since they are the ones that expect a form submission in <code>params</code> in which <code>params["movies"]</code> should appear.  The other actions do not expect or manipulate this form (and do not call the helper function <code>movie_params</code>) so they would not be affected.
   </blockquote>
-  </p>
 </details>
 
-Based on the above self-checks, you should be able to modify the controller and views as needed to be "aware" of the new Director field.
+### Action! Modify the View and Controller to Be Aware of the `director` field
 
-So do that now: **modify the controller and views as needed to be "aware" of the new Director field.**
+Based on the above self-checks, you should be able to modify the controller and view as needed to be "aware" of the new Director field.
 
+So do that now: **modify the controller and view as needed to be "aware" of the new Director field.**
 
+### Action! Run Cucumber
+Verify that the Cucumber steps you expect to pass actually do pass by running
+
+```sh
+rails cucumber
+```
 
 ## Part 2: use Acceptance and Unit tests to get new scenarios passing
 
@@ -243,11 +253,9 @@ Going one Cucumber step at a time, use RSpec to create the appropriate controlle
   <summary> 
   Would this model method be a class method or instance method?
   </summary>
-  <p>
   <blockquote> 
   Technically it could be either.  You could call it on a movie, the idea being that it returns other movies with the same director as its receiver, e.g. <code>movie.others_by_same_director()</code>.  Or you could define it as a class method, e.g. <code>Movie.with_director(director)</code>. In fact, it's great practice to write it both ways.
   </blockquote>
-  </p>
 </details>
 
 Verify that the Cucumber steps you expect to pass actually do pass.
