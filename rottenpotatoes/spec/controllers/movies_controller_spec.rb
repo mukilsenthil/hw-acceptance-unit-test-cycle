@@ -47,7 +47,7 @@ RSpec.describe MoviesController, type: :controller do
                            rating: 'PG-13', release_date: '2023-12-17')
       get :update, params: { id: movie.id, movie: { director: 'Not Nick!' } }
 
-      expect(assigns(:movie).direcor).to eq('Not Nick!')
+      expect(assigns(:movie).director).to eq('Not Nick!')
       movie.destroy
     end
   end
