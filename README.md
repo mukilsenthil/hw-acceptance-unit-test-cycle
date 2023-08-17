@@ -326,7 +326,7 @@ end
 **To Be Clear:** You should follow this process:
 
 1. Run Cucumber: `rails cucumber`.
-2. Verify that all steps in the scenario are passing or pending.
+2. Verify that all steps in the scenario are skipped, pending, or passed.
 3. Implement the next step in the scenario.
 4. Run Cucumber: `rails cucumber`.
 5. Verify that the step is failing.
