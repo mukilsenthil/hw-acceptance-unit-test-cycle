@@ -285,6 +285,8 @@ The second scenario that we have provided for you expects to be able to click a 
 
 **Write tests first.**
 
+You will find the [RSpec Rails documentation](https://rspec.info/features/6-0/rspec-rails/) helpful.
+
 Going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At the least, you will need to write tests to drive the creation of: 
 
 * a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: Tests can fail if the route is not correct (you can test route existence directly in a spec).
