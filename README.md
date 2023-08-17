@@ -126,6 +126,7 @@ rails cucumber
 
 ## Part 1: add a Director field to Movies
 
+### Action! Migration
 **Create** and **apply** a migration that adds the Director field to the movies table. The director field should be a string containing the name of the movie’s director. 
 
 * Hint: you may find the `rails generate migration ...` tool useful.
@@ -150,11 +151,12 @@ to load the new post-migration schema into the test database.
   </summary>
   <p>
   <blockquote> 
-  Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will still fail.
+  Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
   </blockquote>
   </p>
 </details>
 
+### Action! Run Cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
@@ -163,16 +165,22 @@ rails cucumber
 
 <details>
   <summary> 
-  Read the Cucumber failure error messages.  The first test failure should be:<br/>
-    `Undefined step: the director of "Alien" should be "Ridley Scott"`<br/>
-    What will you have to do to address that specific error?  
+  Read the Cucumber results.  You should see that every step of the scenarios are undefined. What will you have to do to address that?  Specifically, how do you resolve the very first of those: Undefined step: "I go to the edit page for "Alien"" 
   </summary>
   <p>
   <blockquote> 
-  You'll have to write a definition for this step in movie_steps.rb
+  You'll have to write a definition. Right now, it's not a bad idea to write these steps in `features/step_definitions/movie_steps.rb`.
   </blockquote>
   </p>
 </details>
+
+### Action! Define Steps
+
+**One at a time**, write a step definition for each of the missing steps of the first scenario (add director to existing movie).
+
+You will find thw [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master) helpful.
+
+After each step that you define, run Cucumber again to verify that the step is passing as expected.  **Do not race ahead.**
 
 <details>
   <summary>
