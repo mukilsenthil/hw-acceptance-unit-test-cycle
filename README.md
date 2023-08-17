@@ -116,7 +116,7 @@ rails cucumber
   </summary>
   <p>
   <blockquote> 
-  The attribute `director` is unknown (doesn't exist) for the `Movie` model.  We must add the `director` attribute to the `Movie` model.
+  The attribute `director` is unknown (doesn't exist) for the `Movie` model.  We must add a `director` field to the `Movie` model.
   </blockquote>
   </p>
 </details>
