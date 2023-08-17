@@ -264,8 +264,14 @@ The last step of this scenario is to verify that the director field was updated 
 
 ### Action! Update the Movies Controller to Add Director to the Permitted Movie Parameters
 
-1. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
-2. Run cucumber to verify that the step passes.
+1. Run Rspec: `rails spec`
+2. Verify that the `MoviesController updates actually does the update` example fails.
+   * If this tests did not exist yet ([you're welcome](https://www.youtube.com/watch?v=79DijItQXMM)), we would create it now.
+4. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
+5. Run Rspec: `rails spec`
+6. Verify that none of the examples are failing
+   * 4 *are* pending, though... you'll come back to these in a bit.
+8. Run cucumber to verify that the step passes.
 
 ### Action! Celebrate!
 
@@ -277,19 +283,13 @@ The second scenario that we have provided for you expects to be able to click a 
 
 ### Action! Implement the Step Definitions and Specs to Drive Modifications to the Code Base
 
+**Write tests first.**
+
 Going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At the least, you will need to write tests to drive the creation of: 
 
 * a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: you probably won’t test this directly in a spec, but a line in Cucumber or rspec will fail if the route is not correct.
 * a controller method to receive the click on "Find with Same Director", and grab the `id` (for example) of the movie that is the subject of the match (i.e. the one we're trying to find movies similar to) 
 * a model method in the `Movie` model to find movies whose director matches that of the current movie.
-
-
-
-### Scenario: Can't Find Movies With the Same Director If We Don't Know the Director
-
-The third handles the sad path, when the current movie has no director info but we try to do "Find Movies with Same Director" anyway.
-
-
 
 <details>
   <summary> 
@@ -300,21 +300,84 @@ The third handles the sad path, when the current movie has no director info but 
   </blockquote>
 </details>
 
-Verify that the Cucumber steps you expect to pass actually do pass.
+Note: we have provided stubs for some controller and model specs:
 
-Note: You should write at least 2 specs for your controller:
-1) When the specified movie has a director, it should...
-2) When the specified movie has no director, it should ...
+```ruby
+# spec/controllers/movies_controller_spec.rb
 
-and at least 2 specs for your model:
-1) it should return the correct matches for movies by the same director and
-2) it should not return matches of movies by different directors.
+describe "when trying to find movies by the same director" do
+  it "returns a valid collection when a valid director is present"
+    # TODO(student): implement this test
+end
+```
 
-It's up to you to decide whether you want to handle the sad path of "no director" in the controller method or in the model method, but you must provide a test for whichever one you do. **Remember to include the line** `require 'rails_helper'` at the top of every `*_spec.rb` file.
+```ruby
+# spec/models/movie_spec.rb
+
+describe "others_by_same_director method" do
+  it "returns all other movies by the same director"
+    # TODO(student): implement this test
+
+  it "does not return movies by other directors"
+    # TODO(student): implement this test
+end
+```
+
+**To Be Clear:** You should follow this process:
+
+1. Run Cucumber: `rails cucumber`.
+2. Verify that all steps in the scenario are passing or pending.
+3. Implement the next step in the scenario.
+4. Run Cucumber: `rails cucumber`.
+5. Verify that the step is failing.
+   * If it is passing, ask yourself: "Is that supposed to happen?"
+     * No: fix your step definition.
+     * Yes: add and commit changes, then go to step 3 to start working on the next step
+7. Run Rspec: `rails spec`.
+8. Verify that all examples passing or pending.
+9. Create (or implement) a spec that verifies the correctness of the functionality you want to implement (tests the code you wish you had).
+10. Run Rspec: `rails spec`.
+11. Verify that the newly-implemented example is failing.
+    * If it is passing, ask yourself: "Is that supposed to happen?"
+      * No: fix your spec.
+      * Yes: add and commit changes, then continue.
+13. Write just enough code to turn the example green (passing).
+   * e.g. add a route, create a controller method, create a model method, etc.
+14. Until all functional specifications for the current unit are expressed in Rspec, go to step 9.
+15. Add and commit changes: `git add . ; git commit -m "<message>"`.
+16. Run Cucumber: `rails cucumber`.
+17. Verify that the step is passing.
+    * If it is failing, ask yourself:
+      * "Did I miss a functional requirement?" (if so, your specs, and therefore also your code, are incomplete. write more specs to drive more code.)
+      * "Are my specs wrong?" (if so, your code is "correct" against and invalid spec.  fix your spec and fix your code.)
+      * "Is my step definition wrong?" (if so, your specs might be invalid and your code might be doing the wrong thing. fix your step definition, fix your specs, fix your code.)
+    * If it is passing, add and commit changes, then go to step 3 to start working on the next step.
+
+
+### Scenario: Can't Find Movies With the Same Director If We Don't Know the Director
+
+The third scenario that we have provided for you handles the sad path: when the current movie has no director info but we try to do "Find Movies with Same Director" anyway.
+
+### Action! Implement the Step Definitions and Specs to Drive Further Modifications to the Code Base
+
+**Write tests first.**
+
+Again, going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the development of the functionality to support the expected behavior.
+
+Note: we have provided a stub for a controller spec:
+
+```ruby
+# spec/controllers/movies_controller_spec.rb
+
+describe "when trying to find movies by the same director" do
+  it "redirects to index with a warning when no director is present"
+    # TODO(student): implement this test
+end
+```
+
+It's up to you to decide whether you want to detect the sad path of "no director" in the controller method or in the model method, but you must provide a test for whichever one you do. **Remember to include the line** `require 'rails_helper'` at the top of every `*_spec.rb` file.
 
 ## Part 3: Code Coverage
-
-We want you to report your code coverage as well.
 
 Notice that the Gemfile includes the SimpleCov gem, and that the first two lines of `rails_helper.rb` file (which you should be `require`ing at the top of every `*_spec.rb` file) as well as the first and only two lines of `features/support/simplecov.rb` (which Cucumber loads automatically when run) start the SimpleCov test coverage measurement.
 
@@ -322,7 +385,7 @@ Each time you run `rspec` or `cucumber`, SimpleCov  generates a report in a dire
 
 To see the results, open `coverage/index.html` with a browser or HTML preview extension to view your coverage report.  If you cannot view the page remotely, download the coverage folder and view it locally.
 
-Improve your test coverage to at least 90% by adding unit tests for untested or undertested code and by removing code which you do not need.
+Improve your test coverage to **at least 90%** by adding unit tests for untested or undertested code and by removing code which you do not need.
 
 ## Part 4: Code Quality
 
