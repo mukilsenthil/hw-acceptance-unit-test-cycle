@@ -36,9 +36,9 @@ to make sure all gems are properly installed.
 
 **NOTE:** If Bundler complains that the wrong Ruby version is installed,
 
-* **rvm**: verify that `rvm` is installed (for example, `rvm --version`) and say `rvm list` to see which Ruby versions are available and `rvm use <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can say `rvm install <version>` to install a new version, then `rvm use <version>` to use it.
+* **rvm**: verify that `rvm` is installed (for example, `rvm --version`) and run `rvm list` to see which Ruby versions are available and `rvm use <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can run `rvm install <version>` to install a new version, then `rvm use <version>` to use it.
 
-* **rbenv**: verify that `rbenv` is installed (for example, `rbenv --version`) and say `rbenv versions` to see which Ruby versions are available and `rbenv local <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can say `rbenv install <version>` to install a new version, then `rbenv local <version>` to use it.
+* **rbenv**: verify that `rbenv` is installed (for example, `rbenv --version`) and run `rbenv versions` to see which Ruby versions are available and `rbenv local <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can run `rbenv install <version>` to install a new version, then `rbenv local <version>` to use it.
 
 Then you can try `bundle install` again.
 
