@@ -98,12 +98,15 @@ If rails complains that `Don't know how to build task 'cucumber'`, then you need
 rails generate cucumber:install
 ```  
 
-Say `Y` to all requests to overwrite.  Then re-add to `features/support/env.rb` at the top:
+Say `Y` to all requests to overwrite.  
+
+<!--Then re-add to `features/support/env.rb` at the top:
 
 ```ruby
 require 'simplecov'
 SimpleCov.start 'rails'
 ```
+-->
 
 Then run 
 ```sh
