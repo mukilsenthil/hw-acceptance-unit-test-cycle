@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe MoviesController, type: :controller do
   before(:all) do
-    if Movie.where(title: "Big Hero 6").empty?
-      Movie.create(title: "Big Hero 6", 
-                   rating: "PG", release_date: "2014-11-07")
-    end
+    Movie.destroy_all
+
+    Movie.create( title: "Big Hero 6",
+                  rating: "PG",
+                  release_date: "2014-11-07",
+                  director: "Don Hall, Chris Williams")
     
     # TODO(student): add more movies to use for testing
   end
