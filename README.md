@@ -112,17 +112,14 @@ rails cucumber
 
 <details>
   <summary> 
-  Read the Cucumber failure error messages.  The first test failure should be: <br/>
-  Undefined step: the director of "Alien" should be "Ridley Scott" <br/>
-  What will you have to do to address that specific error?  
+  Read the Cucumber failure error messages.  The Background step is red.  Why? And how do we fix it?
   </summary>
   <p>
   <blockquote> 
-  You'll have to write a definition for this step in movie_steps.rb
+  The attribute `director` is unknown (doesn't exist) for the `Movie` model.  We must add the `director` attribute to the `Movie` model.
   </blockquote>
   </p>
 </details>
-
 
 ## Part 1: add a Director field to Movies
 
@@ -146,11 +143,24 @@ to load the new post-migration schema into the test database.
 
 <details>
   <summary> 
-  Look at the step definitions for the failing steps of the Cucumber scenarios.  (Where would you find those definitions?)  Based on the step definitions, which step(s) of the scenario file would you now expect to *pass* if you re-run Cucumber, and why?
+  Read the Cucumber failure error messages.  The first test failure should be:<br/>
+    `Undefined step: the director of "Alien" should be "Ridley Scott"`<br/>
+    What will you have to do to address that specific error?  
   </summary>
   <p>
   <blockquote> 
-  Once this field is added, running <code>rake cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will still fail.
+  You'll have to write a definition for this step in movie_steps.rb
+  </blockquote>
+  </p>
+</details>
+
+<details>
+  <summary> 
+  Look at the step definitions for the failing steps of the Cucumber scenarios.  Based on the step definitions, which step(s) of the scenario file would you now expect to *pass* if you re-run Cucumber, and why?
+  </summary>
+  <p>
+  <blockquote> 
+  Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will still fail.
   </blockquote>
   </p>
 </details>
