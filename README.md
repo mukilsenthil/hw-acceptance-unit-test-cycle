@@ -2,7 +2,7 @@
 
 In this assignment you will use a combination of acceptance and unit tests with the Cucumber and RSpec tools to add a "find movies with same director" feature to RottenPotatoes.
 
-**To start: fork this repo and then clone your fork.**
+**To start: fork this repo as an internal repo within the tamu-edu-students organization and then clone your fork.**
 
 ## Learning Goals
 
