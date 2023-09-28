@@ -266,7 +266,7 @@ The last step of this scenario is to verify that the director field was updated 
 
 1. Run Rspec: `rails spec`
 2. Verify that the `MoviesController updates actually does the update` example fails.
-   * If this tests did not exist yet ([you're welcome](https://www.youtube.com/watch?v=79DijItQXMM)), we would create it now.
+   * If this test did not exist yet ([you're welcome](https://www.youtube.com/watch?v=79DijItQXMM)), we would create it now.
 4. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
 5. Run Rspec: `rails spec`
 6. Verify that none of the examples are failing
