@@ -49,6 +49,8 @@ Then you can try `bundle install` again.
 rails db:migrate
 ```
 
+If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
+
 If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations: 
 
 ```sh
