@@ -46,7 +46,7 @@ Then you can try `bundle install` again.
 
 
 ```sh
-rake db:migrate
+bundle exec rake db:migrate
 ```
 
 If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
@@ -54,7 +54,7 @@ If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)
 If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations: 
 
 ```sh
-sudo apt install nodejs && rake db:migrate
+sudo apt install nodejs && bundle exec rake db:migrate
 ```
 
 If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
@@ -67,27 +67,26 @@ mkdir -p app/assets/config
 } > app/assests/config/manifest.js
 ```
 
-Then re-run `rake db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
+Then re-run `bundle exec rake db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
 
-This should be the last time you have to attempt to re-run `rake db:migrate`.
+This should be the last time you have to attempt to re-run `bundle exec rake db:migrate`.
 
 Now do:
 
 ```sh
-rake db:test:prepare
+bundle exec rake db:test:prepare
 ```
 
 4. Add some more seed data in `db/seeds.rb`.  Then, add it to the database by running
 
 ```sh
-rake db:seed
+bundle exec rake db:seed
 ```
 
 5. Double check that RSpec is correctly set up by running
 
 ```sh
-rails spec
-# (Note--*not* rails rspec as you might think. Sorry.)
+bundle exec rspec
 ```
 
 There are already some RSpec tests written and you should expect them to fail right now.
@@ -131,7 +130,7 @@ rails cucumber
 
 * Hint: you may find the `rails generate migration ...` tool useful.
 * Hint: you may find the [`add_column` method of `ActiveRecord::Migration`](http://apidock.com/rails/ActiveRecord/ConnectionAdapters/SchemaStatements/add_column) useful.
-* Remember that once the migration is applied, you also have to do `rake db:test:prepare`
+* Remember that once the migration is applied, you also have to do `bundle exec rake db:test:prepare`
 to load the new post-migration schema into the test database.
 
 <details>
@@ -266,11 +265,11 @@ The last step of this scenario is to verify that the director field was updated 
 
 ### Action! Update the Movies Controller to Add Director to the Permitted Movie Parameters
 
-1. Run Rspec: `rails spec`
+1. Run Rspec: `bundle exec rspec`
 2. Verify that the `MoviesController updates actually does the update` example fails.
    * If this test did not exist yet ([you're welcome](https://www.youtube.com/watch?v=79DijItQXMM)), we would create it now.
 4. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
-5. Run Rspec: `rails spec`
+5. Run Rspec: `bundle exec rspec`
 6. Verify that none of the examples are failing
    * 4 *are* pending, though... you'll come back to these in a bit.
 8. Run cucumber to verify that the step passes.
@@ -337,10 +336,10 @@ end
    * If it is passing, ask yourself: "Is that supposed to happen?"
      * No: fix your step definition.
      * Yes: add and commit changes, then go to step 3 to start working on the next step
-7. Run Rspec: `rails spec`.
+7. Run Rspec: `bundle exec rspec`.
 8. Verify that all examples passing or pending.
 9. Create (or implement) a spec that verifies the correctness of the functionality you want to implement (tests the code you wish you had).
-10. Run Rspec: `rails spec`.
+10. Run Rspec: `bundle exec rspec`.
 11. Verify that the newly-implemented example is failing.
     * If it is passing, ask yourself: "Is that supposed to happen?"
       * No: fix your spec.
@@ -408,12 +407,13 @@ Here are the instructions for submitting your assignment for grading. Submit a z
 * `spec/`
 * `Gemfile`
 * `Gemfile.lock`
+* `Rakefile`
 
 If you modified any other files, please include them too. If you are on a *nix based system, navigate to the root directory for this assignment and run
 
 ```sh
 $ cd ..
-$ zip -r acceptance-tests.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoes/db/migrate rottenpotatoes/features/ rottenpotatoes/spec/ rottenpotatoes/Gemfile rottenpotatoes/Gemfile.lock
+$ zip -r acceptance-tests.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoes/db/migrate rottenpotatoes/features/ rottenpotatoes/spec/ rottenpotatoes/Gemfile rottenpotatoes/Gemfile.lock rottenpotatoes/Rakefile
 ```
 
 This will create the file `acceptance-tests.zip`, which you will submit.
@@ -426,6 +426,7 @@ $ tree
 └── rottenpotatoes
     ├── Gemfile
     ├── Gemfile.lock
+    ├── Rakefile
     ├── app
     ...
 ```
