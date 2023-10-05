@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 ruby '3.2.2'
 gem 'rails'
 
-# for Heroku deployment
 group :development, :test do
   gem 'byebug'
   gem 'launchy'
