@@ -65,5 +65,9 @@ module Rottenpotatoes
     # Fix for Heroku deploy
     config.assets.initialize_on_precompile = false
 
+    # A faster and more compact serialization format
+    config.load_defaults 7.0
+
+
   end
 end

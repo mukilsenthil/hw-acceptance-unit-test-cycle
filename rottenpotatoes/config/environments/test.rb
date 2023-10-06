@@ -38,7 +38,7 @@ Rottenpotatoes::Application.configure do
   config.active_support.deprecation = :stderr
 
   # Don't use legacy connection handling
-  config.active_record.legacy_connection_handling = false
+  # config.active_record.legacy_connection_handling = false
 
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
