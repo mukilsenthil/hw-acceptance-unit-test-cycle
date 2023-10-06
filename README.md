@@ -390,7 +390,13 @@ To see the results, open `coverage/index.html` with a browser or HTML preview ex
 
 Improve your test coverage to **at least 90%** by adding unit tests for untested or undertested code and by removing code which you do not need.
 
-## Part 4: Code Quality
+## Part 4: Add Tests
+
+1. Add at least one (1) more Cucumber scenario, to bring the number of scenarios to at least four (4).
+2. Add at least three (3) more Cucumber steps, to bring the number of steps to at least twenty (20). 
+3. Add at least three (3) more RSpec examples, to bring the number of exampels to at least ten (10).
+
+## Part 5: Code Quality
 
 run `rubocop` and `rubycritic` and address most, if not all, of the issues they find.
 
