@@ -402,7 +402,7 @@ run `rubocop` and `rubycritic` and address most, if not all, of the issues they 
 
 ## Submission:
 
-Here are the instructions for submitting your assignment for grading. Submit a zip file containing the following files and directories of your app:
+Submit a zip file containing the following files and directories of your app:
 
 * `app/`
 * `config/`
@@ -415,20 +415,19 @@ If you modified any other files, please include them too. If you are on a *nix b
 
 ```sh
 $ cd ..
-$ zip -r acceptance-tests.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoes/db/migrate rottenpotatoes/features/ rottenpotatoes/spec/ rottenpotatoes/Gemfile
+$ zip -r submission.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoes/db/migrate rottenpotatoes/features/ rottenpotatoes/spec/ rottenpotatoes/Gemfile
 ```
 
-This will create the file `acceptance-tests.zip`, which you will submit.
+This will create the file `submission.zip`, which you will submit.
 
-IMPORTANT NOTE: Your submission must be zipped inside a rottenpotatoes/ folder so that it looks like this:
+IMPORTANT NOTE: Your submission must have the `rottenpotatoes/` folder, so that it looks like this:
 
 ```
 $ tree
 .
 └── rottenpotatoes
     ├── Gemfile
-    ├── Gemfile.lock
-    ├── Rakefile
     ├── app
+    ├── config
     ...
 ```
