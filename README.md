@@ -407,19 +407,15 @@ Here are the instructions for submitting your assignment for grading. Submit a z
 * `app/`
 * `config/`
 * `db/migrate`
-* `db/schema.rb`
-* `db/seeds.rb`
 * `features/`
 * `spec/`
 * `Gemfile`
-* `Gemfile.lock`
-* `Rakefile`
 
 If you modified any other files, please include them too. If you are on a *nix based system, navigate to the root directory for this assignment and run
 
 ```sh
 $ cd ..
-$ zip -r acceptance-tests.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoes/db/migrate rottenpotatoes/features/ rottenpotatoes/spec/ rottenpotatoes/Gemfile rottenpotatoes/Gemfile.lock rottenpotatoes/Rakefile
+$ zip -r acceptance-tests.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoes/db/migrate rottenpotatoes/features/ rottenpotatoes/spec/ rottenpotatoes/Gemfile
 ```
 
 This will create the file `acceptance-tests.zip`, which you will submit.
