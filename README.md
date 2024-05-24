@@ -20,19 +20,19 @@ e.g. `git clone https://github.com/[your-account]/hw-acceptance-unit-test-cycle`
 
 Once you have the clone of the repo:
 
-1. Change into the rottenpotatoes directory: 
+1. Change into the rottenpotatoes directory:
 
 ```sh
 cd hw-acceptance-unit-test-cycle/rottenpotatoes
 ```
 
-2. Run 
+2. Run
 
 ```sh
 bundle config set --local without 'production' && bundle install
 ```
 
-to make sure all gems are properly installed.  
+to make sure all gems are properly installed.
 
 **NOTE:** If Bundler complains that the wrong Ruby version is installed,
 
@@ -51,7 +51,7 @@ bundle exec rake db:migrate
 
 If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
 
-If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations: 
+If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations:
 
 ```sh
 sudo apt install nodejs && bundle exec rake db:migrate
@@ -77,7 +77,7 @@ Now do:
 bundle exec rake db:test:prepare
 ```
 
-4. Add some more seed data in `db/seeds.rb`.  Then, add it to the database by running
+4. **IMPORTANT** Add some more seed data in `db/seeds.rb`. I want you to add at least 3 more movies.  Then, add the seed data to the database by running
 
 ```sh
 bundle exec rake db:seed
@@ -93,13 +93,13 @@ There are already some RSpec tests written and you should expect them to fail ri
 
 7. Double check that Cucumber is correctly set up by running `rails cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
 
-If rails complains that `Don't know how to build task 'cucumber'`, then you need to run 
+If rails complains that `Don't know how to build task 'cucumber'`, then you need to run
 
 ```sh
 rails generate cucumber:install
-```  
+```
 
-Say `Y` to all requests to overwrite.  
+Say `Y` to all requests to overwrite.
 
 <!--Then re-add to `features/support/env.rb` at the top:
 
@@ -109,24 +109,24 @@ SimpleCov.start 'rails'
 ```
 -->
 
-Then run 
+Then run
 ```sh
 rails cucumber
 ```
 
 <details>
-  <summary> 
+  <summary>
   Read the Cucumber failure error messages.  The Background step is red.  Why? And how do we fix it?
   </summary>
-  <blockquote> 
+  <blockquote>
   The attribute `director` is unknown (doesn't exist) for the `Movie` model.  We must add a `director` field to the `Movie` model.
   </blockquote>
 </details>
 
 ## Part 1: add a Director field to Movies
 
-### Action! Migration
-**Create** and **apply** a migration that adds the Director field to the movies table. The director field should be a string containing the name of the movie’s director. 
+### Migration
+**Create** and **apply** a migration that adds the Director field to the movies table. The director field should be a string containing the name of the movie’s director.
 
 * Hint: you may find the `rails generate migration ...` tool useful.
 * Hint: you may find the [`add_column` method of `ActiveRecord::Migration`](http://apidock.com/rails/ActiveRecord/ConnectionAdapters/SchemaStatements/add_column) useful.
@@ -137,21 +137,21 @@ to load the new post-migration schema into the test database.
   <summary>
   Clearly, now that a new field has been added, we will have to modify the Views so that the user can see and enter values for that field. Do we also have to modify the model file in order for the new field to be "noticed"?
   </summary>
-  <blockquote> 
+  <blockquote>
   Nope.  ActiveRecord infers the columns and their data types by inspecting the database.  However, if we wanted to have a validation on that column, we'd have to specifically mention it in a <code>validates</code> call.
   </blockquote>
 </details>
 
 <details>
-  <summary> 
+  <summary>
   If you were to re-run cucumber now, which **previously failing(( steps do you expect to now **pass**?  Why?
   </summary>
-  <blockquote> 
+  <blockquote>
   Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
   </blockquote>
 </details>
 
-### Action! Run Cucumber
+### Run Cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
@@ -159,15 +159,15 @@ rails cucumber
 ```
 
 <details>
-  <summary> 
-  Read the Cucumber results.  You should see that every step of the scenarios are undefined. What will you have to do to address that?  Specifically, how do you resolve the very first of those: Undefined step: "I go to the edit page for "Alien"" 
+  <summary>
+  Read the Cucumber results.  You should see that every step of the scenarios are undefined. What will you have to do to address that?  Specifically, how do you resolve the very first of those: Undefined step: "I go to the edit page for "Alien""
   </summary>
-  <blockquote> 
+  <blockquote>
   You'll have to write a definition. Right now, it's not a bad idea to write these steps in `features/step_definitions/movie_steps.rb`.
   </blockquote>
 </details>
 
-### Action! Define Steps, Implement a Step
+### Define Steps, Implement a Step
 
 1. As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report) into `movie_steps.rb`.  **Do it now.**
 2. Run Cucumber again: `rails cucumber`.
@@ -184,32 +184,32 @@ rails cucumber
     </blockquote>
 </details>
 
-### Action! Run Cucumber
+### Run Cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
 rails cucumber
 ```
 
-###  Action! Implement Another Step
+###  Implement Another Step
 
 1. Implement the step `I fill in {string} with {string}`
 2. Run cucumber to see the step is failing for the right reason.
 
 <details>
   <summary>What is the right reason for this step to fail?</summary>
-  <blockquote> 
+  <blockquote>
   Unable to find field "Director" that is not disabled (Capybara::ElementNotFound).  The edit page (app/views/movies/edit.html.erb) does not have a director field.  So, we must add it!
   </blockquote>
 </details>
 
-### Action! Modify the View to Be Aware of the `director` field
+### Modify the View to Be Aware of the `director` field
 
 Based on the above, you should be able to modify the view to be "aware" of the new Director field.
 
 So, do that now.
 
-### Action! Run Cucumber
+### Run Cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
@@ -247,9 +247,9 @@ The last step of this scenario is to verify that the director field was updated 
 
 <details>
   <summary>
-  Besides modifying the view, will we have to modify anything in the controller?  If so, what? 
+  Besides modifying the view, will we have to modify anything in the controller?  If so, what?
   </summary>
-  <blockquote> 
+  <blockquote>
   Yes: we have to add <code>:director</code> to the list of movie attributes in the <code>def movie_params</code> method in <code>movies_controller.rb</code>.  Otherwise, even if that value is available as <code>params["movie"]["director"]</code>, it will be "scrubbed" by the <code>require</code> and <code>permit</code> calls on <code>params</code> before the controller actions are able to see it.
   </blockquote>
 </details>
@@ -258,12 +258,12 @@ The last step of this scenario is to verify that the director field was updated 
   <summary>
   Which controller actions, specifically, would fail to work correctly if we didn't make the above change?
   </summary>
-  <blockquote> 
+  <blockquote>
   <code>create</code> and <code>update</code> would fail, since they are the ones that expect a form submission in <code>params</code> in which <code>params["movies"]</code> should appear.  The other actions do not expect or manipulate this form (and do not call the helper function <code>movie_params</code>) so they would not be affected.
   </blockquote>
 </details>
 
-### Action! Update the Movies Controller to Add Director to the Permitted Movie Parameters
+### Update the Movies Controller to Add Director to the Permitted Movie Parameters
 
 1. Run Rspec: `bundle exec rspec`
 2. Verify that the `MoviesController updates actually does the update` example fails.
@@ -274,31 +274,31 @@ The last step of this scenario is to verify that the director field was updated 
    * 4 *are* pending, though... you'll come back to these in a bit.
 8. Run cucumber to verify that the step passes.
 
-### Action! Celebrate!
+### Celebrate!
 
 All steps in the first scenario should be passing!
 
 ### Scenario: Find Movies with the Same Director
 
-The second scenario that we have provided for you expects to be able to click a new link on a movie details page "Find Movies with Same Director", and shows all other movies that share the same director as the displayed movie.  For this you'll have to modify the existing Show Movie view, and you'll have to add a route, view and controller method for Find With Same Director.  
+The second scenario that we have provided for you expects to be able to click a new link on a movie details page "Find Movies with Same Director", and shows all other movies that share the same director as the displayed movie.  For this you'll have to modify the existing Show Movie view, and you'll have to add a route, view and controller method for Find With Same Director.
 
-### Action! Implement the Step Definitions and Specs to Drive Modifications to the Code Base
+### Implement the Step Definitions and Specs to Drive Modifications to the Code Base
 
-**Write tests first.**
+**VERY IMPORTANT: Write tests first!**
 
 You will find the [RSpec documentation](https://rspec.info/documentation/) helpful.
 
-Going one Cucumber step at a time, implement the step definitions until failure, then use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At the least, you will need to write tests to drive the creation of: 
+Going one Cucumber step at a time, implement the step definitions until failure, then use RSpec to create the appropriate controller and model specs to drive the creation of the new controller and model methods.  At a minimum, you will need to write tests to drive the creation of:
 
-* a RESTful route for Find Similar Movies (HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  Note: Tests can fail if the route is not correct (you can test route existence directly in a spec).
-* a controller method to receive the click on "Find with Same Director", and grab the `id` (for example) of the movie that is the subject of the match (i.e. the one we're trying to find movies similar to) 
-* a model method in the `Movie` model to find movies whose director matches that of the current movie.
+1. a RESTful route for Find Similar Movies (*HINT: use the 'match' syntax for routes as suggested in "Non-Resource-Based Routes" in the [Rails Routing documentation](http://guides.rubyonrails.org/routing.html)*). You can also use the key `:as` to specify a name to generate helpers (i.e. search_directors_path)  *Note: Tests can fail if the route is not correct (you can test route existence directly in a spec)*.
+2. a controller method to receive the click on "Find with Same Director", and grab the `id` (for example) of the movie that is the subject of the match (i.e. the one we're trying to find movies similar to)
+3. a model method in the `Movie` model to find movies whose director matches that of the current movie.
 
 <details>
-  <summary> 
+  <summary>
   Would this model method be a class method or instance method?
   </summary>
-  <blockquote> 
+  <blockquote>
   Technically it could be either.  You could call it on a movie, the idea being that it returns other movies with the same director as its receiver, e.g. <code>movie.others_by_same_director()</code>.  Or you could define it as a class method, e.g. <code>Movie.with_director(director)</code>. In fact, it's great practice to write it both ways.
   </blockquote>
 </details>
@@ -336,20 +336,20 @@ end
    * If it is passing, ask yourself: "Is that supposed to happen?"
      * No: fix your step definition.
      * Yes: add and commit changes, then go to step 3 to start working on the next step
-7. Run Rspec: `bundle exec rspec`.
-8. Verify that all examples passing or pending.
-9. Create (or implement) a spec that verifies the correctness of the functionality you want to implement (tests the code you wish you had).
-10. Run Rspec: `bundle exec rspec`.
-11. Verify that the newly-implemented example is failing.
+6. Run Rspec: `bundle exec rspec`.
+7. Verify that all examples passing or pending.
+8. Create (or implement) a spec that verifies the correctness of the functionality you want to implement (tests the code you wish you had).
+9. Run Rspec: `bundle exec rspec`.
+10. Verify that the newly-implemented example is failing.
     * If it is passing, ask yourself: "Is that supposed to happen?"
       * No: fix your spec.
       * Yes: add and commit changes, then continue.
-13. Write just enough code to turn the example green (passing).
-   * e.g. add a route, create a controller method, create a model method, etc.
-14. Until all functional specifications for the current unit are expressed in Rspec, go to step 9.
-15. Add and commit changes: `git add . ; git commit -m "<message>"`.
-16. Run Cucumber: `rails cucumber`.
-17. Verify that the step is passing.
+11. Write just enough code to turn the example green (passing).
+    * e.g. add a route, create a controller method, create a model method, etc.
+12. Until all functional specifications for the current unit are expressed in Rspec, go to step 9.
+13. Add and commit changes: `git add . ; git commit -m "<message>"`.
+14. Run Cucumber: `rails cucumber`.
+15. Verify that the step is passing.
     * If it is failing, ask yourself:
       * "Did I miss a functional requirement?" (if so, your specs, and therefore also your code, are incomplete. go to step 9 to write more specs to drive more code.)
       * "Are my specs wrong?" (if so, your code is "correct" against and invalid spec.  go to step 9 to fix your spec and fix your code.)
@@ -361,9 +361,9 @@ end
 
 The third scenario that we have provided for you handles the sad path: when the current movie has no director info but we try to do "Find Movies with Same Director" anyway.
 
-### Action! Implement the Step Definitions and Specs to Drive Further Modifications to the Code Base
+### Implement the Step Definitions and Specs to Drive Further Modifications to the Code Base
 
-**Write tests first.**
+**VERY IMPORTANT: Write tests first!**
 
 Again, going one Cucumber step at a time, use RSpec to create the appropriate controller and model specs to drive the development of the functionality to support the expected behavior.
 
@@ -393,7 +393,7 @@ Improve your test coverage to **at least 90%** by adding unit tests for untested
 ## Part 4: Add Tests
 
 1. Add at least one (1) more Cucumber scenario, to bring the number of scenarios to at least four (4).
-2. Add at least three (3) more Cucumber steps, to bring the number of steps to at least twenty (20). 
+2. Add at least three (3) more Cucumber steps, to bring the number of steps to at least twenty (20).
 3. Add at least three (3) more RSpec examples, to bring the number of exampels to at least ten (10).
 
 ## Part 5: Code Quality
@@ -420,7 +420,7 @@ $ zip -r submission.zip rottenpotatoes/app/ rottenpotatoes/config/ rottenpotatoe
 
 This will create the file `submission.zip`, which you will submit.
 
-IMPORTANT NOTE: Your submission must have the `rottenpotatoes/` folder, so that it looks like this:
+**IMPORTANT NOTE:** Your submission must have the `rottenpotatoes/` folder, so that it looks like this:
 
 ```
 $ tree
