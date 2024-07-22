@@ -48,16 +48,17 @@ Then you can try `bundle install` again.
 ```sh
 bundle exec rake db:migrate
 ```
+**NOTE:** Troubleshooting
 
-If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
+* If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
 
-If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations:
+* If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations:
 
 ```sh
 sudo apt install nodejs && bundle exec rake db:migrate
 ```
 
-If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
+* If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
 
 ```sh
 mkdir -p app/assets/config
@@ -67,9 +68,9 @@ mkdir -p app/assets/config
 } > app/assests/config/manifest.js
 ```
 
-Then re-run `bundle exec rake db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
+* Then re-run `bundle exec rake db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
 
-This should be the last time you have to attempt to re-run `bundle exec rake db:migrate`.
+* This should be the last time you have to attempt to re-run `bundle exec rake db:migrate`.
 
 Now do:
 
