@@ -281,7 +281,7 @@ The last step of this scenario is to verify that the director field was updated 
 1. Run Rspec: `bundle exec rspec`
 2. Verify that the `MoviesController updates actually does the update` example fails.
    * If this test did not exist yet ([you're welcome](https://www.youtube.com/watch?v=79DijItQXMM)), we would create it now.
-     - *because we do NOT want to change or add any code without a failing test to explain WHY we need to add or chnage the code.*
+     - *because we do* **NOT** *want to add or change any code without a failing test to explain* **WHY** *we need to add or change the code.*
 4. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
 5. Run Rspec: `bundle exec rspec`
 6. Verify that none of the examples are failing
