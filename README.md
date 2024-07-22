@@ -157,7 +157,7 @@ to load the new post-migration schema into the test database.
   If you were to re-run cucumber now, which **previously failing(( steps do you expect to now **pass**?  Why?
   </summary>
   <blockquote>
-  Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
+  Once this field is added, running <code>bundle exec cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
   </blockquote>
 </details>
 
@@ -165,7 +165,7 @@ to load the new post-migration schema into the test database.
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 <details>
@@ -180,7 +180,7 @@ rails cucumber
 ### Define Steps, Implement a Step
 
 1. As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report) into `movie_steps.rb`.  **Do it now.**
-2. Run Cucumber again: `rails cucumber`.
+2. Run Cucumber again: `bundle exec cucumber`.
    * See that all steps are now pending or skipped (because an earlier step is pending).
 3. Implement the step `I go to the edit page for {string}`
    * You will find these to be helpful:
@@ -198,7 +198,7 @@ rails cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 ###  Implement Another Step
@@ -223,7 +223,7 @@ So, do that now.
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 The first two steps of `Scenario: add director to existing movie` should be green (passing).  The next step (`And I press "Update Movie Info"`) should be pending.
@@ -338,10 +338,10 @@ end
 
 **To Be Clear:** You should follow this process:
 
-1. Run Cucumber: `rails cucumber`.
+1. Run Cucumber: `bundle exec cucumber`.
 2. Verify that all steps in the scenario are skipped, pending, or passed.
 3. Implement the next step in the scenario.
-4. Run Cucumber: `rails cucumber`.
+4. Run Cucumber: `bundle exec cucumber`.
 5. Verify that the step is failing.
    * If it is passing, ask yourself: "Is that supposed to happen?"
      * No: fix your step definition.
@@ -358,7 +358,7 @@ end
     * e.g. add a route, create a controller method, create a model method, etc.
 12. Until all functional specifications for the current unit are expressed in Rspec, go to step 9.
 13. Add and commit changes: `git add . ; git commit -m "<message>"`.
-14. Run Cucumber: `rails cucumber`.
+14. Run Cucumber: `bundle exec cucumber`.
 15. Verify that the step is passing.
     * If it is failing, ask yourself:
       * "Did I miss a functional requirement?" (if so, your specs, and therefore also your code, are incomplete. go to step 9 to write more specs to drive more code.)
