@@ -204,7 +204,8 @@ bundle exec cucumber
 ###  Implement Another Step
 
 1. Implement the step `I fill in {string} with {string}`
-2. Run cucumber to see the step is failing for the right reason.
+   + You will again find the [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master) to be helpful
+3. Run cucumber to see the step is failing for the right reason.
 
 <details>
   <summary>What is the right reason for this step to fail?</summary>
