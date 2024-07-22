@@ -92,7 +92,7 @@ bundle exec rspec
 
 There are already some RSpec tests written and you should expect them to fail right now.
 
-7. Double check that Cucumber is correctly set up by running `rails cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
+7. Double check that Cucumber is correctly set up by running `bundle exec cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
 
 If rails complains that `Don't know how to build task 'cucumber'`, then you need to run
 
