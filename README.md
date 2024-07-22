@@ -256,6 +256,8 @@ The last step of this scenario is to verify that the director field was updated 
 3. Verify that the step fails.
    * Did you expect it to fail? Why (not)?
 
+:warning: **DON'T CHANGE OR ADD ANY CODE YET!**  Be patient, keep reading and working along.
+
 <details>
   <summary>
   Besides modifying the view, will we have to modify anything in the controller?  If so, what?
