@@ -34,7 +34,7 @@ bundle config set --local without 'production' && bundle install
 
 to make sure all gems are properly installed.
 
-**NOTE:** If Bundler complains that the wrong Ruby version is installed,
+**NOTE:** If Bundler complains that the wrong Ruby version is installed then, depending on your ruby version manager, install and/or use the correct version:
 
 * **rvm**: verify that `rvm` is installed (for example, `rvm --version`) and run `rvm list` to see which Ruby versions are available and `rvm use <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can run `rvm install <version>` to install a new version, then `rvm use <version>` to use it.
 
