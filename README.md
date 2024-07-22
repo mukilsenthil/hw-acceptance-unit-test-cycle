@@ -72,7 +72,7 @@ mkdir -p app/assets/config
 
 * This should be the last time you have to attempt to re-run `bundle exec rake db:migrate`.
 
-Now do:
+Copy the development schema over to the test environment by running:
 
 ```sh
 bundle exec rake db:test:prepare
