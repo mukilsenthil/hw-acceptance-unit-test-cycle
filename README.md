@@ -34,7 +34,7 @@ bundle config set --local without 'production' && bundle install
 
 to make sure all gems are properly installed.
 
-**NOTE:** If Bundler complains that the wrong Ruby version is installed,
+**NOTE:** If Bundler complains that the wrong Ruby version is installed then, depending on your ruby version manager, install and/or use the correct version:
 
 * **rvm**: verify that `rvm` is installed (for example, `rvm --version`) and run `rvm list` to see which Ruby versions are available and `rvm use <version>` to make a particular version active.  If no versions satisfying the Gemfile dependency are installed, you can run `rvm install <version>` to install a new version, then `rvm use <version>` to use it.
 
@@ -48,16 +48,17 @@ Then you can try `bundle install` again.
 ```sh
 bundle exec rake db:migrate
 ```
+**NOTE:** Troubleshooting
 
-If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
+* If rails complains that `.../rottenpotatoes/config/boot.rb:6:in '<top (required)>': undefined method 'exists?' for File:Class (NoMethodError)`, then you need to edit `config/boot.rb` line 6 to use `File.exist?` instead of `File.exists?`. Re-attempt the migrations.
 
-If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations:
+* If rails complains that `ExecJS::RuntimeUnavailable: Could not find a JavaScript runtime`, then you need to install node.js and re-attempt the migrations:
 
 ```sh
 sudo apt install nodejs && bundle exec rake db:migrate
 ```
 
-If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
+* If rails complains that `Sprockets::Railtie::ManifestNeededError: Expected to find a manifest file in 'app/assets/config/manifest.js'`, then you need to create that file and put some stuff in it by running the following in the terminal:
 
 ```sh
 mkdir -p app/assets/config
@@ -67,11 +68,11 @@ mkdir -p app/assets/config
 } > app/assests/config/manifest.js
 ```
 
-Then re-run `bundle exec rake db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
+* Then re-run `bundle exec rake db:migrate`.  If rails complains that `Directly inheriting from ActiveRecord::Migration is not supported`, then you need to add the rails version to your migration files, e.g. `class CreateMovies < ActiveRecord::Migration[7.0]`.
 
-This should be the last time you have to attempt to re-run `bundle exec rake db:migrate`.
+* This should be the last time you have to attempt to re-run `bundle exec rake db:migrate`.
 
-Now do:
+Copy the development schema over to the test environment by running:
 
 ```sh
 bundle exec rake db:test:prepare
@@ -91,15 +92,23 @@ bundle exec rspec
 
 There are already some RSpec tests written and you should expect them to fail right now.
 
-7. Double check that Cucumber is correctly set up by running `rails cucumber`.  We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
+6. Double check that Cucumber is correctly set up by running
 
-If rails complains that `Don't know how to build task 'cucumber'`, then you need to run
+```sh
+bundle exec cucumber
+```
+
+We've provided a couple of scenarios that will fail, which you can use as a starting point, in `features/movies_by_director.feature`.
+
+**Note**: Troubleshooting
+
+* If rails complains that `Don't know how to build task 'cucumber'`, then you need to run
 
 ```sh
 rails generate cucumber:install
 ```
 
-Say `Y` to all requests to overwrite.
+* Say `Y` to all requests to overwrite.
 
 <!--Then re-add to `features/support/env.rb` at the top:
 
@@ -109,9 +118,10 @@ SimpleCov.start 'rails'
 ```
 -->
 
-Then run
+* Then run
+
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 <details>
@@ -147,7 +157,7 @@ to load the new post-migration schema into the test database.
   If you were to re-run cucumber now, which **previously failing(( steps do you expect to now **pass**?  Why?
   </summary>
   <blockquote>
-  Once this field is added, running <code>rails cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
+  Once this field is added, running <code>bundle exec cucumber</code> should allow the <code>Background:</code> steps to pass, since they just use ActiveRecord directly to create movies with a Director field.  But the other scenarios all manipulate the user interface (the views), which you have not yet modified, so they will not yet pass.
   </blockquote>
 </details>
 
@@ -155,7 +165,7 @@ to load the new post-migration schema into the test database.
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 <details>
@@ -170,7 +180,7 @@ rails cucumber
 ### Define Steps, Implement a Step
 
 1. As a first step, you can simply copy+paste the snippets that Cucumber gives you (at the bottom of the report) into `movie_steps.rb`.  **Do it now.**
-2. Run Cucumber again: `rails cucumber`.
+2. Run Cucumber again: `bundle exec cucumber`.
    * See that all steps are now pending or skipped (because an earlier step is pending).
 3. Implement the step `I go to the edit page for {string}`
    * You will find these to be helpful:
@@ -188,13 +198,14 @@ rails cucumber
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 ###  Implement Another Step
 
 1. Implement the step `I fill in {string} with {string}`
-2. Run cucumber to see the step is failing for the right reason.
+   + You will again find the [Capybara API documentation](https://rubydoc.info/github/teamcapybara/capybara/master) to be helpful
+3. Run cucumber to see the step is failing for the right reason.
 
 <details>
   <summary>What is the right reason for this step to fail?</summary>
@@ -213,7 +224,7 @@ So, do that now.
 Verify that the Cucumber steps you expect to pass actually do pass by running
 
 ```sh
-rails cucumber
+bundle exec cucumber
 ```
 
 The first two steps of `Scenario: add director to existing movie` should be green (passing).  The next step (`And I press "Update Movie Info"`) should be pending.
@@ -245,6 +256,8 @@ The last step of this scenario is to verify that the director field was updated 
 3. Verify that the step fails.
    * Did you expect it to fail? Why (not)?
 
+:warning: **DON'T CHANGE OR ADD ANY CODE YET!**  Be patient, keep reading and working along.
+
 <details>
   <summary>
   Besides modifying the view, will we have to modify anything in the controller?  If so, what?
@@ -268,6 +281,7 @@ The last step of this scenario is to verify that the director field was updated 
 1. Run Rspec: `bundle exec rspec`
 2. Verify that the `MoviesController updates actually does the update` example fails.
    * If this test did not exist yet ([you're welcome](https://www.youtube.com/watch?v=79DijItQXMM)), we would create it now.
+     - *because we do* **NOT** *want to add or change any code without a failing test to explain* **WHY** *we need to add or change the code.*
 4. In `app/controllers/movies_controller.rb`, in the method `movie_params`, add `:director` to the `:permit` argument list.
 5. Run Rspec: `bundle exec rspec`
 6. Verify that none of the examples are failing
@@ -328,10 +342,10 @@ end
 
 **To Be Clear:** You should follow this process:
 
-1. Run Cucumber: `rails cucumber`.
+1. Run Cucumber: `bundle exec cucumber`.
 2. Verify that all steps in the scenario are skipped, pending, or passed.
 3. Implement the next step in the scenario.
-4. Run Cucumber: `rails cucumber`.
+4. Run Cucumber: `bundle exec cucumber`.
 5. Verify that the step is failing.
    * If it is passing, ask yourself: "Is that supposed to happen?"
      * No: fix your step definition.
@@ -348,7 +362,7 @@ end
     * e.g. add a route, create a controller method, create a model method, etc.
 12. Until all functional specifications for the current unit are expressed in Rspec, go to step 9.
 13. Add and commit changes: `git add . ; git commit -m "<message>"`.
-14. Run Cucumber: `rails cucumber`.
+14. Run Cucumber: `bundle exec cucumber`.
 15. Verify that the step is passing.
     * If it is failing, ask yourself:
       * "Did I miss a functional requirement?" (if so, your specs, and therefore also your code, are incomplete. go to step 9 to write more specs to drive more code.)
