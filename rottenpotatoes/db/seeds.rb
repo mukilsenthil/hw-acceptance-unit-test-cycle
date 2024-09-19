@@ -16,8 +16,13 @@ movies = [{:title => 'Aladdin', :rating => 'G', :release_date => '25-Nov-1992'},
       	  {:title => 'The Incredibles', :rating => 'PG', :release_date => '5-Nov-2004'},
       	  {:title => 'Raiders of the Lost Ark', :rating => 'PG', :release_date => '12-Jun-1981'},
       	  {:title => 'Chicken Run', :rating => 'G', :release_date => '21-Jun-2000'},
+					{:title => 'Enola Homes', :rating => 'PG-13', :release_date => '23-Sep-2020'},
+					{:title => 'Kaithi', :rating => 'A', :release_date => '24-Oct-2019'},
+					{:title => 'White House Down', :rating => 'PG-13', :release_date => '28-Jun-2013'}
   	 ]
 
 movies.each do |movie|
-  Movie.create!(movie)
+	if !Movie.exists?(title: movie[:title])
+		Movie.create!(movie)
+	end
 end

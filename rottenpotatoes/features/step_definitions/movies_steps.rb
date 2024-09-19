@@ -23,3 +23,46 @@ Then /I should see all the movies/ do
     step %{I should see "#{movie.title}"}
   end
 end
+
+When('I go to the edit page for {string}') do |string|
+  Movie.all.each do |movie|
+    if movie[:title] == string
+      visit(edit_movie_path(movie))
+    end
+  end
+end
+
+When('I fill in {string} with {string}') do |string, string2|
+  fill_in(string, with: string2)
+end
+
+When('I press {string}') do |string|
+  click_button(string)
+end
+
+Then('the director of {string} should be {string}') do |string, string2|
+end
+
+Given('I am on the details page for {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When('I follow {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I should be on the Similar Movies page for {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I should see {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I should not see {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I should be on the home page') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
