@@ -34,3 +34,10 @@ Scenario: can't find movies with the same director if we don't know the director
   When  I follow "Find Movies With Same Director"
   Then  I should be on the home page
   And   I should see "'Alien' has no director info"
+
+Scenario: no repeat in find movie with same director
+  Given I am on the details page for "THX-1138"
+  When I follow "Find Movies With Same Director"
+  Then I should see "Kagemusha"
+  And I should see "Star Wars"
+  And I should not see "THX-1138"

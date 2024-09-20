@@ -1,6 +1,18 @@
 <h2>Create New Movie</h2>
 
 <%= form_tag movies_path, :class => 'form' do %>
+
+  <% if @movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+      <ul>
+        <% @movie.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= label :movie, :title, 'Title', :class => 'col-form-label' %>
   <%= text_field :movie, :title, :class => 'form-control' %>
   <%= label :movie, :rating, 'Rating', :class => 'col-form-label'  %>
