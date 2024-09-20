@@ -91,5 +91,17 @@ RSpec.describe MoviesController, type: :controller do
       movie.destroy
     end
   end
+
+  describe "destroys" do
+    it "destroys the movie that is existing or created in the model" do
+      movie_to_delete = Movie.create(title: 'Seven Samurai', director: 'Yasujiro Ozu',
+                           rating: 'PG', release_date: '1954-04-26')
+      get :destroy, params: {id: movie_to_delete.id}
+
+      expect(Movie.all).not_to match_array(movie_to_delete)
+      expect(flash[:notice]).to eq("Movie '#{movie_to_delete.title}' deleted.")
+    end
+  end
+
 end
 

@@ -12,6 +12,8 @@ Background: movies in database
   | Blade Runner | PG     | Ridley Scott |   1982-06-25 |
   | Alien        | R      |              |   1979-05-25 |
   | THX-1138     | R      | George Lucas |   1971-03-11 |
+  | Kagemusha    | PG     | George Lucas |   1980-10-10 |
+
 
 Scenario: add director to existing movie
   When I go to the edit page for "Alien"
