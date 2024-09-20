@@ -9,15 +9,46 @@ RSpec.describe MoviesController, type: :controller do
                   release_date: "2014-11-07",
                   director: "Don Hall, Chris Williams")
 
-    # TODO(student): add more movies to use for testing
+    Movie.create( title: "White House Down",
+                  rating: "PG-13",
+                  release_date: "2013-06-28",
+                  director: "Roland Emmerich")
+
+    Movie.create( title: "Kaithi",
+                  rating: "A",
+                  release_date: "2019-10-24")
+
+    Movie.create( title: 'Enola Homes',
+                  rating: 'PG-13',
+                  release_date: '23-Sep-2020',
+                  director: "Harry Bradbeer")
+
+    Movie.create( title: "2012",
+                  rating: "PG-13",
+                  release_date: "2009-11-13",
+                  director: "Roland Emmerich")
   end
 
   describe "when trying to find movies by the same director" do
-    it "returns a valid collection when a valid director is present"
-      # TODO(student): implement this test
 
-    it "redirects to index with a warning when no director is present"
-      # TODO(student): implement this test
+    it "returns a valid collection when a valid director is present" do
+      movie = Movie.find_by(title: "2012")
+      same_diro_movie = Movie.find_by(title: "White House Down")
+      not_same_diro_movie = Movie.find_by(title: "Enola Holmes")
+      get :show_by_director, params: {id: movie.id}
+
+      expect(assigns(:movies)).to match_array(same_diro_movie)
+      expect(assigns(:movies)).not_to match_array(not_same_diro_movie)
+    
+    end
+    
+    it "redirects to index with a warning when no director is present" do
+      movie = Movie.find_by(title: "Kaithi")
+      get :show_by_director, params: {id: movie.id}
+      
+      expect(response).to redirect_to movies_path
+      expect(flash[:notice]).to eq("'#{movie.title}' has no director info")
+    end
   end
 
   describe "creates" do
