@@ -6,6 +6,7 @@
     <tr>
       <th>Movie Title</th>
       <th>Rating</th>
+      <tH>Director</th>
       <th>Release Date</th>
       <th>More Info</th>
     </tr>
@@ -20,6 +21,9 @@
           <%= movie.rating %>
         </td>
         <td>
+          <%= movie.director %>
+        </td>
+        <td>
           <%= movie.release_date %>
         </td>
         <td>
@@ -28,3 +32,5 @@
       </tr>
     <% end %>
   </tbody>
+
+  <%= link_to 'Back to movie list', movies_path, :class => 'btn btn-primary col-2' %>

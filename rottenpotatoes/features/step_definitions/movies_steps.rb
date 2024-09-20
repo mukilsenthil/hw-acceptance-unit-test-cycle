@@ -41,28 +41,32 @@ When('I press {string}') do |string|
 end
 
 Then('the director of {string} should be {string}') do |string, string2|
+  movie = Movie.find_by(title: string)
+  expect(movie[:director]).to eq(string2)
 end
 
 Given('I am on the details page for {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  movie = Movie.find_by(title: string)
+  visit(movie_path(movie))
 end
 
 When('I follow {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on(string)
 end
 
 Then('I should be on the Similar Movies page for {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  movie = Movie.find_by(title: string)
+  expect(page.current_url).to include("/#{movie[:id]}/show_by_director")
 end
 
 Then('I should see {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page.body).to have_content(string)
 end
 
 Then('I should not see {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page.body).not_to include(string)
 end
 
 Then('I should be on the home page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page.current_url).to include("/movies")
 end
